@@ -1,0 +1,116 @@
+apiVersion: v1
+entries:
+  argo-cd:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Add support for custom deployment labels
+      artifacthub.io/signKey: |
+        fingerprint: 2B8F22F57260EFA67BE1C5824B11F800CD9D2252
+        url: https://argoproj.github.io/argo-helm/pgp_keys.asc
+    apiVersion: v2
+    appVersion: v3.0.6
+    created: "2025-06-25T16:43:51.44097+09:00"
+    dependencies:
+    - condition: redis-ha.enabled
+      name: redis-ha
+      repository: https://dandydeveloper.github.io/charts/
+      version: 4.33.7
+    description: A Helm chart for Argo CD, a declarative, GitOps continuous delivery
+      tool for Kubernetes.
+    digest: b8d69fb7f50bcdcc27a8d1915c70ecd694e18cd2628120146025249de4b481a8
+    home: https://github.com/argoproj/argo-helm
+    icon: https://argo-cd.readthedocs.io/en/stable/assets/logo.png
+    keywords:
+    - argoproj
+    - argocd
+    - gitops
+    kubeVersion: '>=1.25.0-0'
+    maintainers:
+    - name: argoproj
+      url: https://argoproj.github.io/
+    name: argo-cd
+    sources:
+    - https://github.com/argoproj/argo-helm/tree/main/charts/argo-cd
+    - https://github.com/argoproj/argo-cd
+    urls:
+    - https://100-hours-a-week.github.io/11-ellu-k8s-helm/charts/argo-cd-8.1.1.tgz
+    version: 8.1.1
+  external-secrets:
+  - apiVersion: v2
+    appVersion: v0.18.0
+    created: "2025-06-25T16:43:51.445971+09:00"
+    dependencies:
+    - condition: bitwarden-sdk-server.enabled
+      name: bitwarden-sdk-server
+      repository: oci://ghcr.io/external-secrets/charts
+      version: v0.4.2
+    description: External secrets management for Kubernetes
+    digest: 547ee29499f8a6125b7b8eed8e9cbf262050987c73dcb079e8f229ff8a4a72bb
+    home: https://github.com/external-secrets/external-secrets
+    icon: https://raw.githubusercontent.com/external-secrets/external-secrets/main/assets/eso-logo-large.png
+    keywords:
+    - kubernetes-external-secrets
+    - secrets
+    kubeVersion: '>= 1.19.0-0'
+    maintainers:
+    - email: kellinmcavoy@gmail.com
+      name: mcavoyk
+    name: external-secrets
+    type: application
+    urls:
+    - https://100-hours-a-week.github.io/11-ellu-k8s-helm/charts/external-secrets-0.18.0.tgz
+    version: 0.18.0
+  ingress-nginx:
+  - annotations:
+      artifacthub.io/changes: |
+        - Update Ingress-Nginx version controller-v1.12.3
+      artifacthub.io/prerelease: "false"
+    apiVersion: v2
+    appVersion: 1.12.3
+    created: "2025-06-25T16:43:51.448911+09:00"
+    description: Ingress controller for Kubernetes using NGINX as a reverse proxy
+      and load balancer
+    digest: 0992603193d1c6f521fd3c2c8519d61b393656c3fa970cf8f7ab18a5ff0ed9f2
+    home: https://github.com/kubernetes/ingress-nginx
+    icon: https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Nginx_logo.svg/500px-Nginx_logo.svg.png
+    keywords:
+    - ingress
+    - nginx
+    kubeVersion: '>=1.21.0-0'
+    maintainers:
+    - name: cpanato
+    - name: Gacko
+    - name: strongjz
+    - name: tao12345666333
+    name: ingress-nginx
+    sources:
+    - https://github.com/kubernetes/ingress-nginx
+    urls:
+    - https://100-hours-a-week.github.io/11-ellu-k8s-helm/charts/ingress-nginx-4.12.3.tgz
+    version: 4.12.3
+  kubeadm-cluster-setup:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-06-25T16:43:51.43161+09:00"
+    dependencies:
+    - condition: argocd.enabled
+      name: argo-cd
+      repository: https://argoproj.github.io/argo-helm
+      version: 8.1.1
+    - condition: externalSecrets.enabled
+      name: external-secrets
+      repository: https://charts.external-secrets.io
+      version: 0.18.0
+    - condition: ingressNginx.enabled
+      name: ingress-nginx
+      repository: https://kubernetes.github.io/ingress-nginx
+      version: 4.12.3
+    description: Looper 서비스의 kubeadm 클러스터 helm 차트
+    digest: 3781d3b8f3082cee6b1d4e3895b04b1fb7b1a43b29154daa8e5ce856314c18b9
+    name: kubeadm-cluster-setup
+    type: application
+    urls:
+    - https://100-hours-a-week.github.io/11-ellu-k8s-helm/kubeadm-cluster-setup-1.0.0.tgz
+    version: 1.0.0
+generated: "2025-06-25T16:43:51.412366+09:00"
