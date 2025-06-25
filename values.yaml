@@ -51,6 +51,8 @@ external-secrets:
   installCRDs: true
   createNamespace: true
   namespace: external-secrets-system
+  webhook:
+    failurePolicy: Ignore
 
 ingress-nginx:
   controller:
