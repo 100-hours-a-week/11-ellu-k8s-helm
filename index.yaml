@@ -10,7 +10,7 @@ entries:
         url: https://argoproj.github.io/argo-helm/pgp_keys.asc
     apiVersion: v2
     appVersion: v3.0.6
-    created: "2025-06-25T16:43:51.44097+09:00"
+    created: "2025-06-25T16:53:01.357237+09:00"
     dependencies:
     - condition: redis-ha.enabled
       name: redis-ha
@@ -39,7 +39,7 @@ entries:
   external-secrets:
   - apiVersion: v2
     appVersion: v0.18.0
-    created: "2025-06-25T16:43:51.445971+09:00"
+    created: "2025-06-25T16:53:01.3606+09:00"
     dependencies:
     - condition: bitwarden-sdk-server.enabled
       name: bitwarden-sdk-server
@@ -68,7 +68,7 @@ entries:
       artifacthub.io/prerelease: "false"
     apiVersion: v2
     appVersion: 1.12.3
-    created: "2025-06-25T16:43:51.448911+09:00"
+    created: "2025-06-25T16:53:01.362844+09:00"
     description: Ingress controller for Kubernetes using NGINX as a reverse proxy
       and load balancer
     digest: 0992603193d1c6f521fd3c2c8519d61b393656c3fa970cf8f7ab18a5ff0ed9f2
@@ -92,7 +92,7 @@ entries:
   kubeadm-cluster-setup:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-06-25T16:43:51.43161+09:00"
+    created: "2025-06-25T16:53:01.349424+09:00"
     dependencies:
     - condition: argocd.enabled
       name: argo-cd
@@ -107,10 +107,10 @@ entries:
       repository: https://kubernetes.github.io/ingress-nginx
       version: 4.12.3
     description: Looper 서비스의 kubeadm 클러스터 helm 차트
-    digest: 3781d3b8f3082cee6b1d4e3895b04b1fb7b1a43b29154daa8e5ce856314c18b9
+    digest: a38a9277ccedac2bc2cce928cc1ecf12e1bf23c2e05d7e13fd226e5d1e4e287f
     name: kubeadm-cluster-setup
     type: application
     urls:
     - https://100-hours-a-week.github.io/11-ellu-k8s-helm/kubeadm-cluster-setup-1.0.0.tgz
     version: 1.0.0
-generated: "2025-06-25T16:43:51.412366+09:00"
+generated: "2025-06-25T16:53:01.329882+09:00"
