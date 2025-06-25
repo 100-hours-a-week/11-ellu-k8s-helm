@@ -41,7 +41,21 @@ externalSecrets:
 
 ingressNginx:
   enabled: true
+
+argo-cd:
+  global:
+    namespace: argocd
+  createNamespace: true
+
+external-secrets:
+  installCRDs: true
+  createNamespace: true
+
+ingress-nginx:
   controller:
+    ingressClassResource:
+      name: nginx
+      enabled: true
     service:
       type: NodePort
       nodePorts:
@@ -54,26 +68,21 @@ ingressNginx:
       proxy-connect-timeout: "600"
       proxy-send-timeout: "600"
       proxy-read-timeout: "600"
-      proxy-body-size: "50m"
-      proxy-buffer-size: "8k"
-      proxy-buffers: "4 8k"
     metrics:
       enabled: true
     autoscaling:
       enabled: true
       minReplicas: 2
       maxReplicas: 4
-      targetCPUUtilizationPercentage: 80
-      targetMemoryUtilizationPercentage: 80
-      affinity:
-    podAntiAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
-      - weight: 100
-        podAffinityTerm:
-          labelSelector:
-            matchExpressions:
-            - key: app.kubernetes.io/name
-              operator: In
-              values:
-              - ingress-nginx
-          topologyKey: kubernetes.io/hostname
+    affinity:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                - ingress-nginx
+            topologyKey: kubernetes.io/hostname
