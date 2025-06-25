@@ -1,0 +1,79 @@
+global:
+  clusterName: "looper-kubeadm"
+  storageClass:
+    name: "ebs-sc"
+    create: true
+
+ebsCsiDriver:
+  enabled: true
+  version: "release-1.45"
+
+storageClass:
+  enabled: true
+  name: "ebs-sc"
+  parameters:
+    type: gp3
+    encrypted: "true"
+  volumeBindingMode: WaitForFirstConsumer
+  allowVolumeExpansion: true
+
+argocd:
+  enabled: true
+  namespace: argocd
+  application:
+    enabled: true
+    repoURL: "https://github.com/100-hours-a-week/11-ellu-k8s-config.git"
+    targetRevision: HEAD
+    paths:
+      - "."
+      - "kafka"
+      - "backend"
+      - "frontend"
+      - "ai-chatbot"
+    destinationNamespace: "looper-prod"
+
+externalSecrets:
+  enabled: true
+  namespace: external-secrets-system
+  secretStore:
+    name: aws-secret-store
+    region: ap-northeast-2
+
+ingressNginx:
+  enabled: true
+  controller:
+    service:
+      type: NodePort
+      nodePorts:
+        http: 30080
+        https: 30443
+      externalTrafficPolicy: Local
+    config:
+      use-forwarded-headers: "true"
+      compute-full-forwarded-for: "true"
+      proxy-connect-timeout: "600"
+      proxy-send-timeout: "600"
+      proxy-read-timeout: "600"
+      proxy-body-size: "50m"
+      proxy-buffer-size: "8k"
+      proxy-buffers: "4 8k"
+    metrics:
+      enabled: true
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 4
+      targetCPUUtilizationPercentage: 80
+      targetMemoryUtilizationPercentage: 80
+      affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+            - key: app.kubernetes.io/name
+              operator: In
+              values:
+              - ingress-nginx
+          topologyKey: kubernetes.io/hostname

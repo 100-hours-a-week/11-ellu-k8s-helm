@@ -1,0 +1,27 @@
+{{- if and .Values.argocd.enabled .Values.argocd.application.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .Values.global.clusterName }}-application
+  namespace: {{ .Values.argocd.namespace }}
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "50"
+spec:
+  project: default
+  sources:
+    {{- range .Values.argocd.application.paths }}
+    - repoURL: {{ $.Values.argocd.application.repoURL }}
+      targetRevision: {{ $.Values.argocd.application.targetRevision }}
+      path: {{ . }}
+    {{- end }}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Values.argocd.application.destinationNamespace }}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      selfHeal: true
+      prune: true
+{{- end }}

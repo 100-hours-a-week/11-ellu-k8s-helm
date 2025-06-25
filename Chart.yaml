@@ -1,0 +1,20 @@
+apiVersion: v2
+name: kubeadm-cluster-setup
+description: Looper 서비스의 kubeadm 클러스터 helm 차트
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+
+dependencies:
+  - name: argo-cd
+    version: 8.1.1
+    repository: https://argoproj.github.io/argo-helm
+    condition: argocd.enabled
+  - name: external-secrets
+    version: 0.18.0
+    repository: https://charts.external-secrets.io
+    condition: externalSecrets.enabled
+  - name: ingress-nginx
+    version: 4.12.3
+    repository: https://kubernetes.github.io/ingress-nginx
+    condition: ingressNginx.enabled

@@ -1,0 +1,18 @@
+{{- if .Values.argocd.enabled }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.argocd.namespace }}
+---
+{{- end }}
+{{- if .Values.externalSecrets.enabled }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.externalSecrets.namespace }}
+---
+{{- end }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.argocd.application.destinationNamespace }}
