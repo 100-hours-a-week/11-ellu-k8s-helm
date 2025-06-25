@@ -50,6 +50,7 @@ argo-cd:
 external-secrets:
   installCRDs: true
   createNamespace: true
+  namespace: external-secrets-system
 
 ingress-nginx:
   controller:
